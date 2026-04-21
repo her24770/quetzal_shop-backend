@@ -1,0 +1,27 @@
+import os
+from dotenv import load_dotenv
+
+# Cargar variables del archivo .env
+load_dotenv()
+
+class Settings:
+    # Base de datos
+    DB_HOST: str = os.getenv("DB_HOST", "localhost")
+    DB_PORT: int = int(os.getenv("DB_PORT", "5432"))
+    DB_NAME: str = os.getenv("DB_NAME", "quetzalshop_db")
+    DB_USER: str = os.getenv("DB_USER", "proy2")
+    DB_PASSWORD: str = os.getenv("DB_PASSWORD", "secret")
+
+    # JWT
+    JWT_SECRET: str = os.getenv("JWT_SECRET", "tu-clave-super-secreta")
+    JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
+    JWT_EXPIRE_HOURS: int = int(os.getenv("JWT_EXPIRE_HOURS", "24"))
+
+    # App
+    APP_PORT: int = int(os.getenv("APP_PORT", "8000"))
+    APP_ENV: str = os.getenv("APP_ENV", "development")
+
+    # Construct database URL for connection string
+    DATABASE_URL: str = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+settings = Settings()

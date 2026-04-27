@@ -65,3 +65,6 @@ pgdata/
 
 # Jupyter
 .ipynb_checkpoints/
+
+#doc
+doc 

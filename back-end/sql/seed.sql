@@ -47,16 +47,16 @@ INSERT INTO proveedores (nombre, telefono, email, direccion) VALUES
 -- USUARIOS
 -- ============================================================
 INSERT INTO usuarios (email, password_hash, rol_id, creado) VALUES
-('admin@quetzalshop.com',       '$2b$12$hNYQx3Pplaceholder001', 1, '2025-01-10 08:00:00'),
-('cajero1@quetzalshop.com',     '$2b$12$hNYQx3Pplaceholder002', 2, '2025-01-10 08:05:00'),
-('cajero2@quetzalshop.com',     '$2b$12$hNYQx3Pplaceholder003', 2, '2025-01-10 08:10:00'),
-('cajero3@quetzalshop.com',     '$2b$12$hNYQx3Pplaceholder004', 2, '2025-02-01 09:00:00'),
-('bodeguero1@quetzalshop.com',  '$2b$12$hNYQx3Pplaceholder005', 3, '2025-01-10 08:15:00'),
-('bodeguero2@quetzalshop.com',  '$2b$12$hNYQx3Pplaceholder006', 3, '2025-01-10 08:20:00'),
-('cajero4@quetzalshop.com',     '$2b$12$hNYQx3Pplaceholder007', 2, '2025-03-01 09:00:00'),
-('cajero5@quetzalshop.com',     '$2b$12$hNYQx3Pplaceholder008', 2, '2025-03-15 09:00:00'),
-('bodeguero3@quetzalshop.com',  '$2b$12$hNYQx3Pplaceholder009', 3, '2025-04-01 09:00:00'),
-('admin2@quetzalshop.com',      '$2b$12$hNYQx3Pplaceholder010', 1, '2025-04-15 09:00:00');
+('admin@quetzalshop.com',       '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 1, '2025-01-10 08:00:00'),
+('cajero1@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-01-10 08:05:00'),
+('cajero2@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-01-10 08:10:00'),
+('cajero3@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-02-01 09:00:00'),
+('bodeguero1@quetzalshop.com',  '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 3, '2025-01-10 08:15:00'),
+('bodeguero2@quetzalshop.com',  '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 3, '2025-01-10 08:20:00'),
+('cajero4@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-03-01 09:00:00'),
+('cajero5@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-03-15 09:00:00'),
+('bodeguero3@quetzalshop.com',  '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 3, '2025-04-01 09:00:00'),
+('admin2@quetzalshop.com',      '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 1, '2025-04-15 09:00:00');
 
 -- ============================================================
 -- EMPLEADOS

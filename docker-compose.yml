@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   db:
+    container_name: quetzalshop-db
     image: postgres:15
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -21,6 +22,7 @@ services:
       retries: 10
 
   backend:
+    container_name: quetzalshop-back
     build:
       context: ./back-end
       dockerfile: Dockerfile
@@ -35,6 +37,7 @@ services:
       - ./back-end:/app
 
   frontend:
+    container_name: quetzalshop-front
     build:
       context: ./front-end
       dockerfile: Dockerfile

@@ -1,7 +1,34 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { IC } from '$lib/icons';
+  import { auth } from '$lib/stores/auth';
+  import { loginRequest } from '$lib/api';
 
+  let email        = '';
+  let password     = '';
   let showPassword = false;
+  let loading      = false;
+  let error        = '';
+
+  async function handleSubmit() {
+    if (!email || !password) {
+      error = 'Completa todos los campos';
+      return;
+    }
+
+    loading = true;
+    error   = '';
+
+    try {
+      const data = await loginRequest(email, password);
+      auth.login(data.access_token, data.user);
+      goto('/dashboard');
+    } catch (e: any) {
+      error = e.message ?? 'Error al iniciar sesión';
+    } finally {
+      loading = false;
+    }
+  }
 </script>
 
 <div class="login-wrapper">
@@ -18,8 +45,13 @@
       <p class="brand-sub">Sistema POS</p>
     </div>
 
+    <!-- Error -->
+    {#if error}
+      <div class="login-error">{error}</div>
+    {/if}
+
     <!-- Formulario -->
-    <form class="login-form">
+    <form class="login-form" on:submit|preventDefault={handleSubmit}>
       <div class="qz-field">
         <label class="qz-label" for="email">Correo electrónico</label>
         <div class="qz-input-wrap">
@@ -33,6 +65,8 @@
             type="email"
             class="qz-input has-icon"
             placeholder="usuario@quetzalshop.com"
+            bind:value={email}
+            disabled={loading}
           />
         </div>
       </div>
@@ -45,12 +79,26 @@
               <path d={IC.lock} />
             </svg>
           </span>
-          <input
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            class="qz-input has-icon"
-            placeholder="••••••••"
-          />
+          <!-- Dos inputs para evitar el error de bind:value con type dinámico -->
+          {#if showPassword}
+            <input
+              id="password"
+              type="text"
+              class="qz-input has-icon"
+              placeholder="••••••••"
+              bind:value={password}
+              disabled={loading}
+            />
+          {:else}
+            <input
+              id="password"
+              type="password"
+              class="qz-input has-icon"
+              placeholder="••••••••"
+              bind:value={password}
+              disabled={loading}
+            />
+          {/if}
           <button
             type="button"
             class="toggle-pw"
@@ -63,8 +111,17 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-purple btn-lg full" style="margin-top: 8px;">
-        Ingresar
+      <button
+        type="submit"
+        class="btn btn-purple btn-lg full"
+        style="margin-top: 8px;"
+        disabled={loading}
+      >
+        {#if loading}
+          Ingresando...
+        {:else}
+          Ingresar
+        {/if}
       </button>
     </form>
 
@@ -124,6 +181,17 @@
     font-size: 13px;
     color: var(--g-400);
     margin: 0;
+  }
+
+  .login-error {
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    color: var(--red-text);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
   }
 
   .login-form {

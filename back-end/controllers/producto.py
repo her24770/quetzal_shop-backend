@@ -42,9 +42,12 @@ def update(producto_id: int, body: ProductoUpdate) -> ProductoResponse:
     return producto
 
 
-# Elimina un producto y lanza 404 si no existía
+# Elimina un producto; lanza 404 si no existe y 409 si tiene referencias activas
 def delete(producto_id: int) -> dict:
-    eliminado = productos_query.delete(producto_id)
+    try:
+        eliminado = productos_query.delete(producto_id)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
     if not eliminado:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Producto no encontrado")
     return {"message": "Producto eliminado correctamente"}

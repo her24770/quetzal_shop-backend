@@ -38,9 +38,12 @@ def update(cliente_id: int, body: ClienteUpdate) -> ClienteResponse:
     return cliente
 
 
-# Elimina un cliente y lanza 404 si no existía
+# Elimina un cliente; lanza 404 si no existe y 409 si tiene ventas asociadas
 def delete(cliente_id: int) -> dict:
-    eliminado = clientes_query.delete(cliente_id)
+    try:
+        eliminado = clientes_query.delete(cliente_id)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
     if not eliminado:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cliente no encontrado")
     return {"message": "Cliente eliminado correctamente"}

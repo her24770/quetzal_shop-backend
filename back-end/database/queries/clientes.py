@@ -92,7 +92,7 @@ def update(cliente_id: int, campos: dict) -> dict | None:
         return_connection(conn)
 
 
-# Elimina un cliente por ID, retorna True si se eliminó algo
+# Elimina un cliente por ID; lanza ValueError si tiene ventas asociadas
 def delete(cliente_id: int) -> bool:
     conn = get_connection()
     try:
@@ -100,5 +100,10 @@ def delete(cliente_id: int) -> bool:
             cur.execute("DELETE FROM clientes WHERE id = %s", (cliente_id,))
             conn.commit()
             return cur.rowcount > 0
+    except Exception as e:
+        conn.rollback()
+        if "foreign key" in str(e).lower() or "violates" in str(e).lower():
+            raise ValueError("No se puede eliminar: el cliente tiene ventas asociadas")
+        raise
     finally:
         return_connection(conn)

@@ -93,7 +93,7 @@ def update(proveedor_id: int, campos: dict) -> dict | None:
         return_connection(conn)
 
 
-# Elimina un proveedor por ID, retorna True si se eliminó algo
+# Elimina un proveedor por ID; lanza ValueError si tiene compras o productos asociados
 def delete(proveedor_id: int) -> bool:
     conn = get_connection()
     try:
@@ -101,5 +101,10 @@ def delete(proveedor_id: int) -> bool:
             cur.execute("DELETE FROM proveedores WHERE id = %s", (proveedor_id,))
             conn.commit()
             return cur.rowcount > 0
+    except Exception as e:
+        conn.rollback()
+        if "foreign key" in str(e).lower() or "violates" in str(e).lower():
+            raise ValueError("No se puede eliminar: el proveedor tiene compras o productos asociados")
+        raise
     finally:
         return_connection(conn)

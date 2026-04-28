@@ -37,9 +37,12 @@ def update(empleado_id: int, body: EmpleadoUpdate) -> EmpleadoResponse:
     return empleado
 
 
-# Elimina un empleado y lanza 404 si no existía
+# Elimina un empleado; lanza 404 si no existe y 409 si tiene ventas o compras registradas
 def delete(empleado_id: int) -> dict:
-    eliminado = empleados_query.delete(empleado_id)
+    try:
+        eliminado = empleados_query.delete(empleado_id)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
     if not eliminado:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Empleado no encontrado")
     return {"message": "Empleado eliminado correctamente"}

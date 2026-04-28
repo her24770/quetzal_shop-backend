@@ -81,7 +81,7 @@ def update(empleado_id: int, campos: dict) -> dict | None:
         return_connection(conn)
 
 
-# Elimina un empleado por ID, retorna True si se eliminó algo
+# Elimina un empleado por ID; lanza ValueError si tiene ventas o compras registradas
 def delete(empleado_id: int) -> bool:
     conn = get_connection()
     try:
@@ -89,5 +89,10 @@ def delete(empleado_id: int) -> bool:
             cur.execute("DELETE FROM empleados WHERE id = %s", (empleado_id,))
             conn.commit()
             return cur.rowcount > 0
+    except Exception as e:
+        conn.rollback()
+        if "foreign key" in str(e).lower() or "violates" in str(e).lower():
+            raise ValueError("No se puede eliminar: el empleado tiene ventas o compras registradas")
+        raise
     finally:
         return_connection(conn)

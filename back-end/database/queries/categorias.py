@@ -47,7 +47,27 @@ def create(nombre: str, descripcion: str) -> dict:
         return_connection(conn)
 
 
-# Elimina una categoría por ID, retorna True si se eliminó algo
+# Actualiza solo los campos recibidos y retorna la categoría actualizada
+def update(categoria_id: int, campos: dict) -> dict | None:
+    if not campos:
+        return get_by_id(categoria_id)
+
+    sets = ", ".join(f"{k} = %s" for k in campos)
+    valores = list(campos.values()) + [categoria_id]
+
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(f"UPDATE categorias SET {sets} WHERE id = %s", valores)
+            conn.commit()
+            if cur.rowcount == 0:
+                return None
+        return get_by_id(categoria_id)
+    finally:
+        return_connection(conn)
+
+
+# Elimina una categoría por ID; lanza ValueError si tiene productos asociados
 def delete(categoria_id: int) -> bool:
     conn = get_connection()
     try:
@@ -55,5 +75,10 @@ def delete(categoria_id: int) -> bool:
             cur.execute("DELETE FROM categorias WHERE id = %s", (categoria_id,))
             conn.commit()
             return cur.rowcount > 0
+    except Exception as e:
+        conn.rollback()
+        if "foreign key" in str(e).lower() or "violates" in str(e).lower():
+            raise ValueError("No se puede eliminar: la categoría tiene productos asociados")
+        raise
     finally:
         return_connection(conn)

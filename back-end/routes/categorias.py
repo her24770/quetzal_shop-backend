@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from schemas.categoria import CategoriaCreate, CategoriaResponse
+from schemas.categoria import CategoriaCreate, CategoriaUpdate, CategoriaResponse
 from dependencies import require_role, TokenData
 from controllers import categoria as categoria_controller
 
@@ -23,6 +23,12 @@ def obtener(categoria_id: int, current_user: TokenData = Depends(require_role(1,
 @router.post("/", response_model=CategoriaResponse, status_code=201)
 def crear(body: CategoriaCreate, current_user: TokenData = Depends(require_role(1))):
     return categoria_controller.create(body)
+
+
+# PATCH /categorias/{id} — actualiza una categoría (solo admin)
+@router.patch("/{categoria_id}", response_model=CategoriaResponse)
+def actualizar(categoria_id: int, body: CategoriaUpdate, current_user: TokenData = Depends(require_role(1))):
+    return categoria_controller.update(categoria_id, body)
 
 
 # DELETE /categorias/{id} — elimina una categoría (solo admin)

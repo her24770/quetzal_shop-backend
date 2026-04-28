@@ -36,9 +36,12 @@ def update(proveedor_id: int, body: ProveedorUpdate) -> ProveedorResponse:
     return proveedor
 
 
-# Elimina un proveedor y lanza 404 si no existía
+# Elimina un proveedor; lanza 404 si no existe y 409 si tiene registros asociados
 def delete(proveedor_id: int) -> dict:
-    eliminado = proveedores_query.delete(proveedor_id)
+    try:
+        eliminado = proveedores_query.delete(proveedor_id)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
     if not eliminado:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Proveedor no encontrado")
     return {"message": "Proveedor eliminado correctamente"}

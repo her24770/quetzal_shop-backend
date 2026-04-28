@@ -89,7 +89,7 @@ def update(producto_id: int, campos: dict) -> dict | None:
         return_connection(conn)
 
 
-# Elimina un producto por ID, retorna True si se eliminó algo
+# Elimina un producto por ID; lanza ValueError si tiene referencias activas
 def delete(producto_id: int) -> bool:
     conn = get_connection()
     try:
@@ -97,5 +97,10 @@ def delete(producto_id: int) -> bool:
             cur.execute("DELETE FROM productos WHERE id = %s", (producto_id,))
             conn.commit()
             return cur.rowcount > 0
+    except Exception as e:
+        conn.rollback()
+        if "foreign key" in str(e).lower() or "violates" in str(e).lower():
+            raise ValueError("El producto no se puede eliminar porque está referenciado en ventas, compras o proveedores")
+        raise
     finally:
         return_connection(conn)

@@ -1,0 +1,101 @@
+from database.connection import get_connection, return_connection
+
+
+# Trae todos los productos con su categoría por JOIN
+def get_all() -> list[dict]:
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT p.id, p.nombre, p.descripcion, p.precio, p.stock, p.stock_minimo,
+                       p.categoria_id, c.nombre AS categoria
+                FROM productos p
+                INNER JOIN categorias c ON p.categoria_id = c.id
+                ORDER BY p.nombre
+            """)
+            cols = [desc[0] for desc in cur.description]
+            return [dict(zip(cols, row)) for row in cur.fetchall()]
+    finally:
+        return_connection(conn)
+
+
+# Busca un producto por ID con su categoría, retorna None si no existe
+def get_by_id(producto_id: int) -> dict | None:
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT p.id, p.nombre, p.descripcion, p.precio, p.stock, p.stock_minimo,
+                       p.categoria_id, c.nombre AS categoria
+                FROM productos p
+                INNER JOIN categorias c ON p.categoria_id = c.id
+                WHERE p.id = %s
+            """, (producto_id,))
+            row = cur.fetchone()
+            if row is None:
+                return None
+            cols = [desc[0] for desc in cur.description]
+            return dict(zip(cols, row))
+    finally:
+        return_connection(conn)
+
+
+# Usa la vista v_stock_bajo para traer productos con stock crítico
+def get_stock_bajo() -> list[dict]:
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT id, nombre, stock, stock_minimo, categoria FROM v_stock_bajo")
+            cols = [desc[0] for desc in cur.description]
+            return [dict(zip(cols, row)) for row in cur.fetchall()]
+    finally:
+        return_connection(conn)
+
+
+# Inserta un producto y retorna el registro completo con JOIN a categoría
+def create(nombre: str, descripcion: str, precio: float, stock: int, stock_minimo: int, categoria_id: int) -> dict:
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                INSERT INTO productos (nombre, descripcion, precio, stock, stock_minimo, categoria_id)
+                VALUES (%s, %s, %s, %s, %s, %s)
+                RETURNING id
+            """, (nombre, descripcion, precio, stock, stock_minimo, categoria_id))
+            conn.commit()
+            producto_id = cur.fetchone()[0]
+        return get_by_id(producto_id)
+    finally:
+        return_connection(conn)
+
+
+# Actualiza solo los campos recibidos y retorna el producto actualizado
+def update(producto_id: int, campos: dict) -> dict | None:
+    if not campos:
+        return get_by_id(producto_id)
+
+    sets = ", ".join(f"{k} = %s" for k in campos)
+    valores = list(campos.values()) + [producto_id]
+
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(f"UPDATE productos SET {sets} WHERE id = %s", valores)
+            conn.commit()
+            if cur.rowcount == 0:
+                return None
+        return get_by_id(producto_id)
+    finally:
+        return_connection(conn)
+
+
+# Elimina un producto por ID, retorna True si se eliminó algo
+def delete(producto_id: int) -> bool:
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("DELETE FROM productos WHERE id = %s", (producto_id,))
+            conn.commit()
+            return cur.rowcount > 0
+    finally:
+        return_connection(conn)

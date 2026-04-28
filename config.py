@@ -21,6 +21,11 @@ class Settings:
     APP_PORT: int = int(os.getenv("APP_PORT", "8000"))
     APP_ENV: str = os.getenv("APP_ENV", "development")
 
+    # CORS — orígenes permitidos separados por coma en el .env
+    CORS_ORIGINS: list = os.getenv(
+        "CORS_ORIGINS", "http://localhost:5173,http://localhost:3000"
+    ).split(",")
+
     # Construct database URL for connection string
     DATABASE_URL: str = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 

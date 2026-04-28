@@ -4,18 +4,18 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: proy2
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: quetzalshop_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ./sql/views.sql:/docker-entrypoint-initdb.d/02_views.sql
       - ./sql/seed.sql:/docker-entrypoint-initdb.d/03_seed.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U proy2 -d quetzalshop_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -23,7 +23,7 @@ services:
   backend:
     build: .
     ports:
-      - "8000:8000"
+      - "${APP_PORT}:8000"
     depends_on:
       db:
         condition: service_healthy

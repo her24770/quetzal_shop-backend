@@ -67,4 +67,10 @@ pgdata/
 .ipynb_checkpoints/
 
 #doc
-doc 
+doc
+
+# Frontend — SvelteKit
+front-end/node_modules/
+front-end/.svelte-kit/
+front-end/build/
+

@@ -34,5 +34,19 @@ services:
     volumes:
       - ./back-end:/app
 
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT}:5173"
+    depends_on:
+      - backend
+    env_file:
+      - .env
+    volumes:
+      - ./front-end:/app
+      - /app/node_modules
+
 volumes:
   postgres_data:

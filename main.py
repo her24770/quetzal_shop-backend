@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import auth, categorias, productos
+from routes import auth, categorias, productos, proveedores
 from config import settings
 
 # Inicialización de la aplicación
@@ -23,7 +23,8 @@ app.add_middleware(
 # Registro de routers
 app.include_router(auth.router,       prefix="/auth",       tags=["Autenticación"])
 app.include_router(categorias.router, prefix="/categorias", tags=["Categorías"])
-app.include_router(productos.router,  prefix="/productos",  tags=["Productos"])
+app.include_router(productos.router,   prefix="/productos",   tags=["Productos"])
+app.include_router(proveedores.router, prefix="/proveedores", tags=["Proveedores"])
 
 
 # verificar que el servidor está vivo# ---------------------------------------------------------------------------

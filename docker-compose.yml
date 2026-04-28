@@ -11,9 +11,9 @@ services:
       - "${DB_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
-      - ./sql/views.sql:/docker-entrypoint-initdb.d/02_views.sql
-      - ./sql/seed.sql:/docker-entrypoint-initdb.d/03_seed.sql
+      - ./back-end/sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./back-end/sql/views.sql:/docker-entrypoint-initdb.d/02_views.sql
+      - ./back-end/sql/seed.sql:/docker-entrypoint-initdb.d/03_seed.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
@@ -21,7 +21,9 @@ services:
       retries: 10
 
   backend:
-    build: .
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
     ports:
       - "${APP_PORT}:8000"
     depends_on:
@@ -30,7 +32,7 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
+      - ./back-end:/app
 
 volumes:
   postgres_data:

@@ -1,8 +1,9 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Cargar variables del archivo .env
-load_dotenv()
+# El .env está en la raíz del repo, un nivel arriba de back-end/
+load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 
 class Settings:
     # Base de datos

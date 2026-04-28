@@ -1,5 +1,5 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthCredentials
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from config import settings
@@ -32,7 +32,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
     )
     return encoded_jwt
 
-async def get_current_user(credentials: HTTPAuthCredentials = Depends(security)) -> TokenData:
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> TokenData:
     """
     Extrae y valida el JWT del header Authorization.
     Lanza HTTPException 401 si el token es inválido o expirado.

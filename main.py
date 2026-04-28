@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import auth, categorias, productos, proveedores, clientes
+from routes import auth, categorias, productos, proveedores, clientes, empleados
 from config import settings
 
 # Inicialización de la aplicación
@@ -26,6 +26,7 @@ app.include_router(categorias.router, prefix="/categorias", tags=["Categorías"]
 app.include_router(productos.router,   prefix="/productos",   tags=["Productos"])
 app.include_router(proveedores.router, prefix="/proveedores", tags=["Proveedores"])
 app.include_router(clientes.router,    prefix="/clientes",    tags=["Clientes"])
+app.include_router(empleados.router,   prefix="/empleados",   tags=["Empleados"])
 
 
 # verificar que el servidor está vivo# ---------------------------------------------------------------------------

@@ -56,7 +56,7 @@
   });
 </script>
 
-<svelte:head><title>Dashboard — QuetzalShop</title></svelte:head>
+<svelte:head><title>QuetzalShop</title></svelte:head>
 
 <div class="page-header">
   <div>
@@ -125,6 +125,35 @@
               <td>{p.categoria}</td>
               <td><span class="cell-num">{p.total_vendido}</span> uds.</td>
               <td><span class="cell-total">{fmt(p.total_ingresos)}</span></td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{/if}
+
+<!-- ── Últimas ventas (VIEW v_ventas_completo) ── -->
+{#if canVerVentas && ultimasVentas.length > 0}
+  <div class="section-block">
+    <div class="section-head">
+      <h3 class="section-title">Últimas ventas</h3>
+      <span class="sql-badge sql-badge--green">VIEW</span>
+    </div>
+    <div class="qz-table-wrap">
+      <table class="qz-table">
+        <thead>
+          <tr><th>#</th><th>Fecha</th><th>Cliente</th><th>Empleado</th><th>Método</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          {#each ultimasVentas as v}
+            <tr>
+              <td><span class="cell-id">#{v.id}</span></td>
+              <td>{fmtF(v.fecha)}</td>
+              <td><span class="cell-main">{v.cliente}</span></td>
+              <td><span class="cell-sub">{v.empleado}</span></td>
+              <td>{v.metodo_pago}</td>
+              <td><span class="cell-total">{fmt(v.total)}</span></td>
             </tr>
           {/each}
         </tbody>
@@ -215,35 +244,6 @@
               <td>{p.categoria}</td>
               <td><span style="color:{p.stock === 0 ? '#DC2626' : '#D97706'};font-weight:600">{p.stock}</span></td>
               <td>{p.stock_minimo}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
-  </div>
-{/if}
-
-<!-- ── Últimas ventas (VIEW v_ventas_completo) ── -->
-{#if canVerVentas && ultimasVentas.length > 0}
-  <div class="section-block">
-    <div class="section-head">
-      <h3 class="section-title">Últimas ventas</h3>
-      <span class="sql-badge sql-badge--green">VIEW</span>
-    </div>
-    <div class="qz-table-wrap">
-      <table class="qz-table">
-        <thead>
-          <tr><th>#</th><th>Fecha</th><th>Cliente</th><th>Empleado</th><th>Método</th><th>Total</th></tr>
-        </thead>
-        <tbody>
-          {#each ultimasVentas as v}
-            <tr>
-              <td><span class="cell-id">#{v.id}</span></td>
-              <td>{fmtF(v.fecha)}</td>
-              <td><span class="cell-main">{v.cliente}</span></td>
-              <td><span class="cell-sub">{v.empleado}</span></td>
-              <td>{v.metodo_pago}</td>
-              <td><span class="cell-total">{fmt(v.total)}</span></td>
             </tr>
           {/each}
         </tbody>

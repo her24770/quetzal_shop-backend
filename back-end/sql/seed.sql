@@ -47,16 +47,31 @@ INSERT INTO proveedores (nombre, telefono, email, direccion) VALUES
 -- USUARIOS
 -- ============================================================
 INSERT INTO usuarios (email, password_hash, rol_id, creado) VALUES
-('admin@quetzalshop.com',       '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 1, '2025-01-10 08:00:00'),
-('cajero1@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-01-10 08:05:00'),
-('cajero2@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-01-10 08:10:00'),
-('cajero3@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-02-01 09:00:00'),
-('bodeguero1@quetzalshop.com',  '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 3, '2025-01-10 08:15:00'),
-('bodeguero2@quetzalshop.com',  '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 3, '2025-01-10 08:20:00'),
-('cajero4@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-03-01 09:00:00'),
-('cajero5@quetzalshop.com',     '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 2, '2025-03-15 09:00:00'),
-('bodeguero3@quetzalshop.com',  '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 3, '2025-04-01 09:00:00'),
-('admin2@quetzalshop.com',      '$2b$12$w/.tE0PjiWibjxoz6AKTH.leAS0IPbcBF933wAabpSDAMy0fHK5uW', 1, '2025-04-15 09:00:00');
+('admin@quetzalshop.com',       '$2b$12$SIvkj1HLtieNh2bh8lU8VuJLEuOxmARbIlKaam1lY2E.khYX.A7Qi', 1, '2025-01-10 08:00:00'),
+('cajero1@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-01-10 08:05:00'),
+('cajero2@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-01-10 08:10:00'),
+('cajero3@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-02-01 09:00:00'),
+('bodeguero1@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-01-10 08:15:00'),
+('bodeguero2@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-01-10 08:20:00'),
+('cajero4@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-03-01 09:00:00'),
+('cajero5@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-03-15 09:00:00'),
+('bodeguero3@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-04-01 09:00:00'),
+('admin2@quetzalshop.com',      '$2b$12$SIvkj1HLtieNh2bh8lU8VuJLEuOxmARbIlKaam1lY2E.khYX.A7Qi', 1, '2025-04-15 09:00:00'),
+('cajero6@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-05-01 09:00:00'),
+('cajero7@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-05-15 09:00:00'),
+('cajero8@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-06-01 09:00:00'),
+('cajero9@quetzalshop.com',     '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-06-15 09:00:00'),
+('cajero10@quetzalshop.com',    '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-07-01 09:00:00'),
+('cajero11@quetzalshop.com',    '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-07-15 09:00:00'),
+('cajero12@quetzalshop.com',    '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-08-01 09:00:00'),
+('cajero13@quetzalshop.com',    '$2b$12$NwN0CwSxnsjX1VN08x1ZzueLxle7pdzqOqClMqnwOiJQ/PqJoaFSK', 2, '2025-08-15 09:00:00'),
+('bodeguero4@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-05-01 09:00:00'),
+('bodeguero5@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-05-15 09:00:00'),
+('bodeguero6@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-06-01 09:00:00'),
+('bodeguero7@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-06-15 09:00:00'),
+('bodeguero8@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-07-01 09:00:00'),
+('bodeguero9@quetzalshop.com',  '$2b$12$HbrctOfzXtJXrlIzY0SBveb1rMDCjTZImB0Ms/LaH9Q6UzJMwvKxy', 3, '2025-07-15 09:00:00'),
+('admin3@quetzalshop.com',      '$2b$12$SIvkj1HLtieNh2bh8lU8VuJLEuOxmARbIlKaam1lY2E.khYX.A7Qi', 1, '2025-08-01 09:00:00');
 
 -- ============================================================
 -- EMPLEADOS
@@ -71,7 +86,22 @@ INSERT INTO empleados (usuario_id, dpi, nombre, telefono, cargo, fecha_contrato,
 (7,  '7890123456707', 'Diego Torres Soto',        '5555-0007', 'Cajero',               '2025-03-01', 'activo'),
 (8,  '8901234567808', 'Elena Flores Mendez',      '5555-0008', 'Cajera',               '2025-03-15', 'activo'),
 (9,  '9012345678909', 'Roberto Diaz Castillo',    '5555-0009', 'Bodeguero',            '2025-04-01', 'activo'),
-(10, '0123456789010', 'Patricia Ruiz Vasquez',    '5555-0010', 'Administradora',       '2025-04-15', 'activo');
+(10, '0123456789010', 'Patricia Ruiz Vasquez',    '5555-0010', 'Administradora',       '2025-04-15', 'activo'),
+(11, '1122334455601', 'Marcos Antonio Aju Coy',   '5555-0011', 'Cajero',               '2025-05-01', 'activo'),
+(12, '2233445566702', 'Daniela Xiomara Pop Tut',  '5555-0012', 'Cajera',               '2025-05-15', 'activo'),
+(13, '3344556677803', 'William Eduardo Cux Xol',  '5555-0013', 'Cajero',               '2025-06-01', 'activo'),
+(14, '4455667788904', 'Flor de Maria Tahay Ixim', '5555-0014', 'Cajera',               '2025-06-15', 'activo'),
+(15, '5566778899005', 'Christian Rafael Caal Tec','5555-0015', 'Cajero',               '2025-07-01', 'activo'),
+(16, '6677889900106', 'Wendy Paola Choc Cucul',   '5555-0016', 'Cajera',               '2025-07-15', 'activo'),
+(17, '7788990011207', 'Kevin Estuardo Batz Soc',  '5555-0017', 'Cajero',               '2025-08-01', 'activo'),
+(18, '8899001122308', 'Brenda Liseth Quej Sam',   '5555-0018', 'Cajera',               '2025-08-15', 'activo'),
+(19, '9900112233409', 'Erick Fernando Maquin Pol','5555-0019', 'Bodeguero',            '2025-05-01', 'activo'),
+(20, '0011223344510', 'Yesenia Maribel Tzul Mux', '5555-0020', 'Bodeguera',            '2025-05-15', 'activo'),
+(21, '1122334455611', 'Jonathan David Gomez Caal','5555-0021', 'Bodeguero',            '2025-06-01', 'activo'),
+(22, '2233445566712', 'Sandra Maricela Cucul Pop','5555-0022', 'Bodeguera',            '2025-06-15', 'activo'),
+(23, '3344556677813', 'Hector Ernesto Coyote Tun','5555-0023', 'Bodeguero',            '2025-07-01', 'activo'),
+(24, '4455667788914', 'Lorena Beatriz Tux Choc',  '5555-0024', 'Bodeguera',            '2025-07-15', 'activo'),
+(25, '5566778899015', 'Miguel Angel Puac Xo',     '5555-0025', 'Administrador',        '2025-08-01', 'activo');
 
 -- ============================================================
 -- PRODUCTOS

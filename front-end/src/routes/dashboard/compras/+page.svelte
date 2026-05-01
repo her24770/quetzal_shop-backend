@@ -1,7 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '$lib/components/Icon.svelte';
+  import { IC } from '$lib/icons';
   import { auth } from '$lib/stores/auth';
   import { apiFetch } from '$lib/api';
+  import { exportCsv } from '$lib/csv';
 
   interface Compra {
     id: number; fecha: string; total: number; numero_factura: string; empleado: string;
@@ -24,12 +27,22 @@
     else errorMsg = 'Error al cargar compras';
     loading = false;
   });
+
+  function exportarCSV() {
+    exportCsv('compras.csv',
+      ['ID', 'Fecha', 'No. Factura', 'Empleado', 'Total'],
+      compras.map(c => [c.id, c.fecha, c.numero_factura, c.empleado, c.total])
+    );
+  }
 </script>
 
 <svelte:head><title>Compras — QuetzalShop</title></svelte:head>
 
 <div class="section-header">
   <h2 class="page-title">Compras</h2>
+  <button class="btn btn-sm btn-ghost" on:click={exportarCSV} disabled={compras.length === 0}>
+    <Icon path={IC.down} size={13} /> Exportar CSV
+  </button>
 </div>
 
 {#if errorMsg}
@@ -70,7 +83,7 @@
 {/if}
 
 <style>
-  .section-header { margin-bottom:14px; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .page-title { font-size:20px; font-weight:700; color:#111827; margin:0; }
   .page-error { background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; font-size:13px; padding:8px 12px; border-radius:6px; margin-bottom:14px; }
   .loading-msg { color:#9CA3AF; font-size:14px; padding:20px 0; }

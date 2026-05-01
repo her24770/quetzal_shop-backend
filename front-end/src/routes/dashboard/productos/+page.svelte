@@ -4,6 +4,7 @@
   import { IC } from '$lib/icons';
   import { auth } from '$lib/stores/auth';
   import { apiFetch } from '$lib/api';
+  import { exportCsv } from '$lib/csv';
 
   interface Categoria { id: number; nombre: string; }
   interface Producto {
@@ -126,6 +127,13 @@
   }
 
   const fmt = (n: number) => 'Q ' + n.toLocaleString('es-GT', { minimumFractionDigits: 2 });
+
+  function exportarCSV() {
+    exportCsv('productos.csv',
+      ['ID', 'Nombre', 'Descripcion', 'Categoria', 'Precio', 'Stock', 'Stock Minimo'],
+      productos.map(p => [p.id, p.nombre, p.descripcion, p.categoria, p.precio, p.stock, p.stock_minimo])
+    );
+  }
 </script>
 
 <svelte:head><title>Productos — QuetzalShop</title></svelte:head>
@@ -200,6 +208,9 @@
 <!-- Encabezado de sección -->
 <div class="section-header">
   <h2 class="page-title">Productos</h2>
+  <button class="btn btn-sm btn-ghost" on:click={exportarCSV} disabled={productos.length === 0}>
+    <Icon path={IC.down} size={13} /> Exportar CSV
+  </button>
 </div>
 
 <!-- Tabla -->
@@ -302,7 +313,7 @@
     border-top: 1px solid #F3F4F6;
   }
 
-  .section-header { margin-bottom: 14px; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .page-title { font-size: 20px; font-weight: 700; color: #111827; margin: 0; }
 
   .loading-msg { color: #9CA3AF; font-size: 14px; padding: 20px 0; }

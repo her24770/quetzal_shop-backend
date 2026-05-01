@@ -4,6 +4,7 @@
   import { IC } from '$lib/icons';
   import { auth } from '$lib/stores/auth';
   import { apiFetch } from '$lib/api';
+  import { exportCsv } from '$lib/csv';
 
   interface Cliente { id: number; nombre: string; nit: string; telefono: string; direccion: string; }
 
@@ -68,6 +69,13 @@
     }
   }
 
+  function exportarCSV() {
+    exportCsv('clientes.csv',
+      ['ID', 'Nombre', 'NIT', 'Telefono', 'Direccion'],
+      clientes.map(c => [c.id, c.nombre, c.nit, c.telefono, c.direccion])
+    );
+  }
+
   async function deleteItem(id: number) {
     errorMsg = '';
     const res = await apiFetch(`/clientes/${id}`, token, { method: 'DELETE' });
@@ -130,6 +138,9 @@
 
 <div class="section-header">
   <h2 class="page-title">Clientes</h2>
+  <button class="btn btn-sm btn-ghost" on:click={exportarCSV} disabled={clientes.length === 0}>
+    <Icon path={IC.down} size={13} /> Exportar CSV
+  </button>
 </div>
 
 {#if loading}
@@ -183,7 +194,7 @@
   .form-error { background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; font-size:13px; padding:8px 12px; border-radius:6px; margin-bottom:14px; }
   .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px 20px; }
   .form-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:16px; padding-top:14px; border-top:1px solid #F3F4F6; }
-  .section-header { margin-bottom:14px; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .page-title { font-size:20px; font-weight:700; color:#111827; margin:0; }
   .loading-msg { color:#9CA3AF; font-size:14px; padding:20px 0; }
   .cell-main { font-weight:500; color:#111827; }

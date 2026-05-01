@@ -37,11 +37,31 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 -- PROVEEDORES
 -- ============================================================
 INSERT INTO proveedores (nombre, telefono, email, direccion) VALUES
-('Tech Guatemala S.A.',         '2222-1111', 'ventas@techgt.com',        'Zona 10, Ciudad de Guatemala'),
-('Distribuidora Central S.A.',  '2222-2222', 'info@distcentral.com',     'Zona 1, Ciudad de Guatemala'),
-('Importaciones GT',            '2222-3333', 'compras@impgt.com',        'Zona 4, Ciudad de Guatemala'),
-('Bebidas y Mas S.A.',          '2222-4444', 'pedidos@bebidasmas.com',   'Zona 7, Ciudad de Guatemala'),
-('Textiles del Norte S.A.',     '2222-5555', 'ventas@texnorte.com',      'Zona 18, Ciudad de Guatemala');
+('Tech Guatemala S.A.',                 '2222-1111', 'ventas@techgt.com',            'Zona 10, Ciudad de Guatemala'),
+('Distribuidora Central S.A.',          '2222-2222', 'info@distcentral.com',         'Zona 1, Ciudad de Guatemala'),
+('Importaciones GT',                    '2222-3333', 'compras@impgt.com',            'Zona 4, Ciudad de Guatemala'),
+('Bebidas y Mas S.A.',                  '2222-4444', 'pedidos@bebidasmas.com',       'Zona 7, Ciudad de Guatemala'),
+('Textiles del Norte S.A.',             '2222-5555', 'ventas@texnorte.com',          'Zona 18, Ciudad de Guatemala'),
+('Alimentos Frescos del Campo S.A.',    '2222-6001', 'ventas@alimentosfrescos.com',  'Zona 3, Ciudad de Guatemala'),
+('Ferreteria y Construccion Nacional',  '2222-6002', 'info@ferrconacional.com',      'Zona 6, Ciudad de Guatemala'),
+('Farmacenter Guatemala S.A.',          '2222-6003', 'pedidos@farmacentergt.com',    'Zona 9, Ciudad de Guatemala'),
+('Licores y Bebidas Premium S.A.',      '2222-6004', 'ventas@licorespremium.com',    'Zona 2, Ciudad de Guatemala'),
+('Lacteos La Vaca S.A.',                '2222-6005', 'contacto@lacteosvaca.com',     'Zona 5, Ciudad de Guatemala'),
+('Panaderia Industrial Guatemala',      '2222-6006', 'pedidos@pangtq.com',           'Zona 8, Ciudad de Guatemala'),
+('Distribuidora del Pacifico S.A.',     '2222-6007', 'info@distpacifico.com',        'Zona 11, Ciudad de Guatemala'),
+('Mayoreo Chapalteca S.A.',             '2222-6008', 'ventas@mayoreochap.com',       'Zona 12, Ciudad de Guatemala'),
+('Importadora Pacific Rim GT',          '2222-6009', 'compras@pacificrimgt.com',     'Zona 13, Ciudad de Guatemala'),
+('Verduras y Frutas El Campo',          '2222-6010', 'pedidos@elcampogt.com',        'Zona 14, Ciudad de Guatemala'),
+('Confecciones Moda Guatemala S.A.',    '2222-6011', 'ventas@modagt.com',            'Zona 15, Ciudad de Guatemala'),
+('Papeleria y Arte El Estudiante',      '2222-6012', 'info@estudiante.com',          'Zona 16, Ciudad de Guatemala'),
+('Electrodomesticos del Istmo S.A.',    '2222-6013', 'ventas@electristmo.com',       'Zona 17, Ciudad de Guatemala'),
+('Cosmeticos Bella Guatemala S.A.',     '2222-6014', 'contacto@bellagt.com',         'Zona 19, Ciudad de Guatemala'),
+('Suplementos y Salud Pro S.A.',        '2222-6015', 'ventas@saludpro.com',          'Zona 21, Ciudad de Guatemala'),
+('Calzado Chapincito S.A.',             '2222-6016', 'pedidos@calzadochap.com',      'Zona 1, Mixco'),
+('Muebles y Decoracion del Hogar',      '2222-6017', 'info@muebleshogar.com',        'Zona 4, Mixco'),
+('Jugueteria Infantil GT S.A.',         '2222-6018', 'ventas@jugueteriagt.com',      'Zona 1, Villa Nueva'),
+('Herramientas y Maquinaria GT',        '2222-6019', 'contacto@herramientasgt.com',  'Zona 2, San Miguel Petapa'),
+('Distribuidora Norte S.A.',            '2222-6020', 'ventas@distnorte.com',         'Zona 1, Quetzaltenango');
 
 -- ============================================================
 -- USUARIOS

@@ -1,7 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '$lib/components/Icon.svelte';
+  import { IC } from '$lib/icons';
   import { auth } from '$lib/stores/auth';
   import { apiFetch } from '$lib/api';
+  import { exportCsv } from '$lib/csv';
 
   interface Venta {
     id: number; fecha: string; total: number; descuento: number;
@@ -25,12 +28,22 @@
     else errorMsg = 'Error al cargar ventas';
     loading = false;
   });
+
+  function exportarCSV() {
+    exportCsv('ventas.csv',
+      ['ID', 'Fecha', 'Cliente', 'NIT', 'Empleado', 'Metodo Pago', 'Descuento', 'Total'],
+      ventas.map(v => [v.id, v.fecha, v.cliente, v.nit, v.empleado, v.metodo_pago, v.descuento, v.total])
+    );
+  }
 </script>
 
 <svelte:head><title>Ventas — QuetzalShop</title></svelte:head>
 
 <div class="section-header">
   <h2 class="page-title">Ventas</h2>
+  <button class="btn btn-sm btn-ghost" on:click={exportarCSV} disabled={ventas.length === 0}>
+    <Icon path={IC.down} size={13} /> Exportar CSV
+  </button>
 </div>
 
 {#if errorMsg}
@@ -77,7 +90,7 @@
 {/if}
 
 <style>
-  .section-header { margin-bottom:14px; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .page-title { font-size:20px; font-weight:700; color:#111827; margin:0; }
   .page-error { background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; font-size:13px; padding:8px 12px; border-radius:6px; margin-bottom:14px; }
   .loading-msg { color:#9CA3AF; font-size:14px; padding:20px 0; }

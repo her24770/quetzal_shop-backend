@@ -4,6 +4,7 @@
   import { IC } from '$lib/icons';
   import { auth } from '$lib/stores/auth';
   import { apiFetch } from '$lib/api';
+  import { exportCsv } from '$lib/csv';
 
   interface Empleado {
     id: number; usuario_id: number; dpi: string; nombre: string;
@@ -99,6 +100,13 @@
   function formatFecha(f: string) {
     return f ? new Date(f).toLocaleDateString('es-GT') : '—';
   }
+
+  function exportarCSV() {
+    exportCsv('empleados.csv',
+      ['ID', 'Nombre', 'DPI', 'Cargo', 'Telefono', 'Email', 'Rol', 'Fecha Contrato', 'Estado'],
+      empleados.map(e => [e.id, e.nombre, e.dpi, e.cargo, e.telefono, e.email, e.rol_nombre, e.fecha_contrato, e.estado])
+    );
+  }
 </script>
 
 <svelte:head><title>Empleados — QuetzalShop</title></svelte:head>
@@ -182,6 +190,9 @@
 
 <div class="section-header">
   <h2 class="page-title">Empleados</h2>
+  <button class="btn btn-sm btn-ghost" on:click={exportarCSV} disabled={empleados.length === 0}>
+    <Icon path={IC.down} size={13} /> Exportar CSV
+  </button>
 </div>
 
 {#if loading}
@@ -245,7 +256,7 @@
   .form-error { background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; font-size:13px; padding:8px 12px; border-radius:6px; margin-bottom:14px; }
   .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px 20px; }
   .form-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:16px; padding-top:14px; border-top:1px solid #F3F4F6; }
-  .section-header { margin-bottom:14px; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .page-title { font-size:20px; font-weight:700; color:#111827; margin:0; }
   .loading-msg { color:#9CA3AF; font-size:14px; padding:20px 0; }
   .cell-main { font-weight:500; color:#111827; }

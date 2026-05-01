@@ -105,11 +105,11 @@ docker compose down -v
 
 ### Acceso a la aplicacion web
 
-| Rol       | Correo                    | Contrasena |
-|-----------|---------------------------|------------|
-| Admin     | admin@quetzalshop.com     | admin123   |
-| Cajero    | cajero@quetzalshop.com    | cajero123  |
-| Bodeguero | bodega@quetzalshop.com    | bodega123  |
+| Rol       | Correo                      | Contrasena |
+|-----------|-----------------------------|------------|
+| Admin     | admin@quetzalshop.com       | admin123   |
+| Cajero    | cajero1@quetzalshop.com     | cajero123  |
+| Bodeguero | bodeguero1@quetzalshop.com  | bodega123  |
 
 ### Acceso directo a la base de datos (opcional)
 

@@ -7,7 +7,7 @@ from config import settings
 # Inicialización de la aplicación
 app = FastAPI(
     title="QuetzalShop API",
-    description="Backend del sistema POS QuetzalShop",
+    description="Backend del sistema QuetzalShop",
     version="1.0.0",
 )
 

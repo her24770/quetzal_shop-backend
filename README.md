@@ -1,4 +1,4 @@
-# QuetzalShop — Sistema POS
+# QuetzalShop — Sistema gestion de data
 
 Proyecto 2 — cc3088 Bases de Datos 1 | UVG Ciclo 1 2026
 

@@ -42,7 +42,7 @@
         </svg>
       </div>
       <h1 class="brand-name">QuetzalShop</h1>
-      <p class="brand-sub">Sistema POS</p>
+      <p class="brand-sub">Gestor de tienda</p>
     </div>
 
     <!-- Error -->

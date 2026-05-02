@@ -1,6 +1,9 @@
 from fastapi import HTTPException, status
+from passlib.context import CryptContext
 from database.queries import empleados as empleados_query
 from schemas.empleado import EmpleadoCreate, EmpleadoUpdate, EmpleadoResponse
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 # Retorna la lista completa de empleados con su email y rol
@@ -16,16 +19,25 @@ def get_by_id(empleado_id: int) -> EmpleadoResponse:
     return empleado
 
 
-# Crea un nuevo empleado con los datos del body
+# Crea un usuario y su empleado en una sola transacción
 def create(body: EmpleadoCreate) -> EmpleadoResponse:
-    return empleados_query.create(
-        body.usuario_id,
-        body.dpi,
-        body.nombre,
-        body.telefono,
-        body.cargo,
-        body.fecha_contrato,
-    )
+    try:
+        return empleados_query.create(
+            body.email,
+            pwd_context.hash(body.password),
+            body.rol_id,
+            body.dpi,
+            body.nombre,
+            body.telefono,
+            body.cargo,
+            body.fecha_contrato,
+        )
+    except Exception as e:
+        if "unique" in str(e).lower() and "email" in str(e).lower():
+            raise HTTPException(status_code=409, detail="Ya existe un usuario con ese email")
+        if "unique" in str(e).lower() and "dpi" in str(e).lower():
+            raise HTTPException(status_code=409, detail="Ya existe un empleado con ese DPI")
+        raise HTTPException(status_code=500, detail="Error al crear el empleado")
 
 
 # Actualiza solo los campos que vienen en el body (solo telefono, cargo y estado son editables)

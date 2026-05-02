@@ -44,19 +44,27 @@ def get_by_id(empleado_id: int) -> dict | None:
         return_connection(conn)
 
 
-# Inserta un empleado y retorna el registro completo con JOIN
-def create(usuario_id: int, dpi: str, nombre: str, telefono: str, cargo: str, fecha_contrato: str) -> dict:
+# Crea el usuario y el empleado en una sola transacción
+def create(email: str, password_hash: str, rol_id: int, dpi: str, nombre: str, telefono: str, cargo: str, fecha_contrato: str) -> dict:
     conn = get_connection()
     try:
         with conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO usuarios (email, password_hash, rol_id) VALUES (%s, %s, %s) RETURNING id",
+                (email, password_hash, rol_id),
+            )
+            usuario_id = cur.fetchone()[0]
             cur.execute("""
                 INSERT INTO empleados (usuario_id, dpi, nombre, telefono, cargo, fecha_contrato)
                 VALUES (%s, %s, %s, %s, %s, %s)
                 RETURNING id
             """, (usuario_id, dpi, nombre, telefono, cargo, fecha_contrato))
-            conn.commit()
             empleado_id = cur.fetchone()[0]
+            conn.commit()
         return get_by_id(empleado_id)
+    except Exception:
+        conn.rollback()
+        raise
     finally:
         return_connection(conn)
 

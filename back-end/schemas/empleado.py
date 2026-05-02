@@ -2,9 +2,11 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-# Datos requeridos para crear un empleado
+# Datos requeridos para crear un empleado (también crea el usuario asociado)
 class EmpleadoCreate(BaseModel):
-    usuario_id: int
+    email: str
+    password: str
+    rol_id: int
     dpi: str
     nombre: str
     telefono: str

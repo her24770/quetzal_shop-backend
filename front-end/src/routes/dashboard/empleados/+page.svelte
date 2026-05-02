@@ -23,7 +23,7 @@
   let form = emptyForm();
 
   function emptyForm() {
-    return { id: 0, usuario_id: '', dpi: '', nombre: '', telefono: '', cargo: '', fecha_contrato: '', estado: 'activo' };
+    return { id: 0, email: '', password: '', rol_id: '2', dpi: '', nombre: '', telefono: '', cargo: '', fecha_contrato: '', estado: 'activo' };
   }
 
   $: isAdmin = $auth.user?.rol_id === 1;
@@ -60,13 +60,14 @@
 
   async function saveForm() {
     if (mode === 'add') {
-      if (!form.usuario_id || !form.dpi || !form.nombre || !form.cargo || !form.fecha_contrato) {
+      if (!form.email || !form.password || !form.dpi || !form.nombre || !form.cargo || !form.fecha_contrato) {
         errorMsg = 'Completa todos los campos obligatorios'; return;
       }
       saving = true; errorMsg = '';
       const body = {
-        usuario_id: parseInt(form.usuario_id), dpi: form.dpi, nombre: form.nombre,
-        telefono: form.telefono, cargo: form.cargo, fecha_contrato: form.fecha_contrato,
+        email: form.email, password: form.password, rol_id: parseInt(form.rol_id),
+        dpi: form.dpi, nombre: form.nombre, telefono: form.telefono,
+        cargo: form.cargo, fecha_contrato: form.fecha_contrato,
       };
       try {
         const res = await apiFetch('/empleados', token, { method: 'POST', body: JSON.stringify(body) });
@@ -125,8 +126,19 @@
       <!-- Campos solo visibles en modo agregar -->
       {#if mode === 'add'}
         <div class="qz-field">
-          <label class="qz-label" for="e-uid">ID de usuario *</label>
-          <input id="e-uid" type="number" class="qz-input" bind:value={form.usuario_id} placeholder="ID del usuario en el sistema" />
+          <label class="qz-label" for="e-email">Email (acceso al sistema) *</label>
+          <input id="e-email" type="email" class="qz-input" bind:value={form.email} placeholder="correo@ejemplo.com" />
+        </div>
+        <div class="qz-field">
+          <label class="qz-label" for="e-pass">Contraseña *</label>
+          <input id="e-pass" type="password" class="qz-input" bind:value={form.password} placeholder="Contraseña de acceso" />
+        </div>
+        <div class="qz-field">
+          <label class="qz-label" for="e-rol">Rol *</label>
+          <select id="e-rol" class="qz-input" bind:value={form.rol_id}>
+            <option value="2">Cajero</option>
+            <option value="3">Bodeguero</option>
+          </select>
         </div>
         <div class="qz-field">
           <label class="qz-label" for="e-dpi">DPI *</label>
